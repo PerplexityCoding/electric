@@ -168,6 +168,7 @@ defmodule Electric.Application do
     |> Electric.StackSupervisor.build_shared_opts()
     |> Keyword.merge(
       long_poll_timeout: get_env(opts, :long_poll_timeout),
+      sse_timeout: get_env(opts, :sse_timeout),
       max_age: get_env(opts, :cache_max_age),
       stale_age: get_env(opts, :cache_stale_age),
       allow_shape_deletion: get_env(opts, :allow_shape_deletion?),

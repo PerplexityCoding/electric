@@ -57,6 +57,7 @@ defmodule Electric.Config do
     # set enable_http_api: false to turn off the HTTP server totally
     enable_http_api: true,
     long_poll_timeout: 20_000,
+    sse_timeout: 60_000,
     http_api_num_acceptors: nil,
     tcp_send_timeout: :timer.seconds(30),
     cache_max_age: 60,

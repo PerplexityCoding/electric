@@ -272,7 +272,9 @@ config :electric,
       "ELECTRIC_REPLICATION_IDLE_TIMEOUT",
       &Electric.Config.parse_human_readable_time!/1,
       nil
-    )
+    ),
+  sse_timeout:
+    env!("ELECTRIC_SSE_TIMEOUT", &Electric.Config.parse_human_readable_time!/1, nil)
 
 if Electric.telemetry_enabled?() do
   # Disable the default telemetry_poller process since we start our own in

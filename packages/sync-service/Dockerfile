@@ -21,18 +21,18 @@ ARG MIX_TARGET
 
 WORKDIR /builder/electric
 
-COPY --from=electric-telemetry / /builder/electric-telemetry
+COPY packages/electric-telemetry /builder/electric-telemetry
 
-COPY mix.* /builder/electric/
+COPY packages/sync-service/mix.* /builder/electric/
+
 RUN mix deps.get
 RUN MIX_OS_DEPS_COMPILE_PARTITION_COUNT=4 mix deps.compile
 
 # These are ordered by change frequency, with the least frequently changing dir first.
-COPY rel /builder/electric/rel
-COPY lib /builder/electric/lib/
-
-COPY package.json /builder/electric/
-COPY config/config.exs /builder/electric/config/
+COPY packages/sync-service/rel /builder/electric/rel
+COPY packages/sync-service/lib /builder/electric/lib/
+COPY packages/sync-service/package.json /builder/electric/
+COPY packages/sync-service/config/config.exs /builder/electric/config/
 
 # Set ELECTRIC_VERSION as late as possible to avoid invalidating the build cache for earlier steps
 ARG ELECTRIC_VERSION
@@ -41,7 +41,7 @@ ARG ELECTRIC_VERSION
 RUN mix compile
 RUN mix sentry.package_source_code
 
-COPY config/runtime.exs /builder/electric/config/
+COPY packages/sync-service/config/runtime.exs /builder/electric/config/
 
 RUN mix release
 
